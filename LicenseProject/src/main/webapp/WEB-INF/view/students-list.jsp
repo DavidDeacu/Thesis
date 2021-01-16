@@ -32,6 +32,7 @@
 					<th>First Name</th>
 					<th>Last Name</th>
 					<th>Email</th>
+					<th></th>
 					<th>Action</th>
 				</tr>
 				
@@ -46,12 +47,18 @@
 					<!-- construct an "delete" link with student id -->
 					<c:url var="deleteLink" value="/student/delete">
 						<c:param name="studentId" value="${tempStudent.id}" />
+					</c:url>
+					
+					<!-- construct an "showMarks" link with student id -->
+					<c:url var="showMarksLink" value="/student/showMarks">
+						<c:param name="studentId" value="${tempStudent.id}" />
 					</c:url>					
 					
 					<tr>
 						<td> ${tempStudent.firstName} </td>
 						<td> ${tempStudent.lastName} </td>
 						<td> ${tempStudent.email} </td>
+						<td> <a href="${showMarksLink}">Show Marks</a> </td>
 						
 						<td>
 							<!-- display the update link -->

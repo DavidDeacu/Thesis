@@ -1,5 +1,6 @@
 package com.license.cd.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -8,6 +9,7 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.license.cd.entity.Mark;
 import com.license.cd.entity.Student;
 
 @Repository
@@ -62,11 +64,28 @@ public class StudentDAOImpl implements StudentDAO {
 		//get the current hibernate session
 		Session currentSession = sessionFactory.getCurrentSession();
 		
-		//delete the object using the primary key
-		Query theQuery = currentSession.createQuery("delete from Student where id=:studentId");
-		theQuery.setParameter("studentId", theId);
+		Student theStudent = currentSession.get(Student.class, theId);
 		
-		theQuery.executeUpdate();
+		//delete the object using the primary key
+		currentSession.delete(theStudent);
+	}
+
+	@Override
+	public void addMark(Student student, Mark mark) {
+		
+		//get the current hibernate session
+		Session currentSession = sessionFactory.getCurrentSession();
+		
+		Student theStudent = currentSession.get(Student.class, student.getId());
+		
+		List<Mark> marks = theStudent.getMarks();
+		
+		if(marks == null) {
+			marks = new ArrayList<>();
+		}
+		
+		marks.add(mark);
+		mark.setStudent(student);
 	}
 
 }

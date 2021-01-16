@@ -1,10 +1,15 @@
 package com.license.cd.entity;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -25,8 +30,19 @@ public class Student {
 	@Column(name="email")
 	private String email;
 	
+	@OneToMany(fetch = FetchType.LAZY,
+			   mappedBy="student", 
+			   cascade= CascadeType.ALL)
+	private List<Mark> marks;
+	
 	public Student() {
 		
+	}
+	
+	public Student(String firstName, String lastName, String email) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
 	}
 
 	public int getId() {
@@ -60,10 +76,18 @@ public class Student {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
+	public List<Mark> getMarks() {
+		return marks;
+	}
+
+	public void setMarks(List<Mark> marks) {
+		this.marks = marks;
+	}
 
 	@Override
 	public String toString() {
-		return "Student [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + "]";
+		return "Student [firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + "]";
 	}
 	
 }

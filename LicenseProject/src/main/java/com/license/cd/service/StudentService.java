@@ -2,6 +2,7 @@ package com.license.cd.service;
 
 import java.util.List;
 
+import com.license.cd.entity.Mark;
 import com.license.cd.entity.Student;
 
 public interface StudentService {
@@ -13,5 +14,7 @@ public interface StudentService {
 	public Student getStudent(int theId);
 	
 	public void deleteStudent(int theId);
+	
+	public void addMark(Student student, Mark mark);
 
 }

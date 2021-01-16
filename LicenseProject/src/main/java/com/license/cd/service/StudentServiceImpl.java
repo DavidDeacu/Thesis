@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.license.cd.dao.StudentDAO;
+import com.license.cd.entity.Mark;
 import com.license.cd.entity.Student;
 
 @Service
@@ -38,6 +39,13 @@ public class StudentServiceImpl implements StudentService {
 	@Transactional
 	public void deleteStudent(int theId) {
 		studentDAO.deleteStudent(theId);
+	}
+
+	@Override
+	@Transactional
+	public void addMark(Student student, Mark mark) {
+		studentDAO.addMark(student, mark);
+		
 	}
 
 }
